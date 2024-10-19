@@ -15,11 +15,11 @@ enum Operations {
 
 impl Operations {
 
-    fn start(&self) -> i32 {
+    fn start(&self, file:String) -> i32 {
 
         match self {
-            &Operations::Encryption => encryption_algos::start_encryption(),
-            &Operations::Decryption => decryption_algos::start_decryption(),
+            &Operations::Encryption => encryption_algos::start_encryption(file),
+            &Operations::Decryption => decryption_algos::start_decryption(file),
             _ => {
                 println!("This should not print!");
                 -1
@@ -36,6 +36,7 @@ fn main() {
     // when we use read_line(), it reads until \n and also
     // stores it in the input var. So we trim it before matching
     let mut choice = String::new();
+    let mut file = String::new();
     let opr:Operations; // We are not initializing here, so no need to define it as mut
 
     println!("Choose one: ");
@@ -45,6 +46,13 @@ fn main() {
     io::stdout().flush();
     io::stdin().read_line(&mut choice).expect("failed to read user input");
 
+    println!("\nFile name: ");
+    print!("> ");
+    io::stdout().flush();
+    io::stdin().read_line(&mut file).expect("failed to read user input");
+
+
+    println!("file name given by user: {}", file);
     // trim() works on &str, so we need to convert our String to &str
     let match_ret = match choice.as_str().trim() {
 
@@ -70,6 +78,6 @@ fn main() {
         ();
     }
 
-    println!("Output for user {}", opr.start());
+    println!("Output for user {}", opr.start(file));
 
 }

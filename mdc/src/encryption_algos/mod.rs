@@ -1,5 +1,5 @@
-pub fn start_encryption() -> i32
+pub fn start_encryption(file: String) -> i32
 {
-    println!("Compression function called");
+    println!("Compression function called for file: {}", file);
     4
 }
