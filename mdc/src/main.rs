@@ -43,16 +43,19 @@ fn main() {
     println!("1. Compress a file");
     println!("2. Decompress a file");
     print!("> ");
-    io::stdout().flush();
+    let _ = io::stdout().flush();
     io::stdin().read_line(&mut choice).expect("failed to read user input");
 
     println!("\nFile name: ");
     print!("> ");
-    io::stdout().flush();
+    let _ = io::stdout().flush(); // assigning it just to avoid warning during compilation
     io::stdin().read_line(&mut file).expect("failed to read user input");
 
+    // read_line() will contain \n also at the end of file name, so trim it
+    file = file.as_str().trim().to_string();
 
-    println!("file name given by user: {}", file);
+
+    //println!("file name given by user: {}", file);
     // trim() works on &str, so we need to convert our String to &str
     let match_ret = match choice.as_str().trim() {
 
@@ -78,6 +81,6 @@ fn main() {
         ();
     }
 
-    println!("Output for user {}", opr.start(file));
+    println!("retval: {}", opr.start(file));
 
 }
