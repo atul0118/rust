@@ -1,0 +1,5 @@
+* This is a simple program to compress and decompress a file.
+* Current it supports only 4-bit compression.
+* Run it using : cargo run
+* When compressing a file, key for compression need to be stored.
+  This key will be then used to decompress the file.
