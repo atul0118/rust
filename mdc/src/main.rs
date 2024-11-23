@@ -15,6 +15,14 @@ enum Operations {
 
 impl Operations {
 
+    fn name(&self) -> &str {
+        match self {
+            &Operations::Encryption => "Compression",
+            &Operations::Decryption => "Decompression",
+            _ => "Invalid"
+        }
+    }
+
     fn start(&self, file:String) -> i32 {
 
         match self {
@@ -26,6 +34,7 @@ impl Operations {
             }
         }
     }
+
 }
 
 fn main() {
@@ -46,26 +55,16 @@ fn main() {
     let _ = io::stdout().flush();
     io::stdin().read_line(&mut choice).expect("failed to read user input");
 
-    println!("\nFile name: ");
-    print!("> ");
-    let _ = io::stdout().flush(); // assigning it just to avoid warning during compilation
-    io::stdin().read_line(&mut file).expect("failed to read user input");
-
-    // read_line() will contain \n also at the end of file name, so trim it
-    file = file.as_str().trim().to_string();
-
-
-    //println!("file name given by user: {}", file);
     // trim() works on &str, so we need to convert our String to &str
     let match_ret = match choice.as_str().trim() {
 
         "1" => {
-            println!("User wants to Compress a file");
+            print!("\n> Enter file to compress: ");
             opr = Operations::Encryption;
         }
 
         "2" => {
-            println!("User wants to Decompress a file");
+            print!("\n> Enter file to decompress: ");
             opr = Operations::Decryption;
         }
 
@@ -77,10 +76,18 @@ fn main() {
 
     };
 
+    let _ = io::stdout().flush(); // assigning it just to avoid warning during compilation
+    io::stdin().read_line(&mut file).expect("failed to read user input");
+    // read_line() will contain \n also at the end of file name, so trim it
+    file = file.as_str().trim().to_string();
+
     if match_ret == () {
         ();
     }
 
-    println!("retval: {}", opr.start(file));
+    match opr.start(file) {
+        0 => println!("{} completed successfully!", opr.name()),
+        _ => println!("{} failed!", opr.name())
+    }
 
 }
