@@ -1,0 +1,5 @@
+* This is the code to generate csv data containing frequency and associated power
+cost for different clusters in the system.
+
+* Usage: ./main data1 data2 data3 data4
+output will be in 'out.csv' file
